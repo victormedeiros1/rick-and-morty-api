@@ -1,0 +1,19 @@
+:root {
+  --dark-1: #111111;
+  --dark-2: #232323;
+  --dark-3: #1d1d1d;
+  --gray: #535353;
+  --light: #ffffff;
+  --lightgray: #a3a3a3;
+  --transparent: rgba(255, 255, 255, 0.1);
+
+  --primaryLight: #b66d40;
+  --primaryMain: #a36238;
+  --primaryDark: #64371d;
+
+  --secondaryLight: #39eee4;
+  --secondaryMain: #53d3cc;
+  --secondaryDark: #37bab3;
+
+  --shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
