@@ -1,17 +1,11 @@
-import './assets/main.css'
-import { createApp, h, provide } from 'vue'
+import './assets/main.scss'
+import { createApp } from 'vue'
 import router from './router'
-import { DefaultApolloClient } from '@vue/apollo-composable'
-import apolloClient from './apollo'
 import App from './App.vue'
+import { Quasar } from 'quasar'
+import quasarUserOptions from './quasar-user-options'
 
-const app = createApp({
-  setup() {
-    provide(DefaultApolloClient, apolloClient)
-  },
-
-  render: () => h(App)
-})
-
+const app = createApp(App)
+app.use(Quasar, quasarUserOptions)
 app.use(router)
 app.mount('#app')
