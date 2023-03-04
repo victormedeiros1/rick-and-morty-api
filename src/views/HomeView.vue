@@ -1,9 +1,6 @@
 <script lang="ts">
-import gql from 'graphql-tag'
-import { useQuery } from '@vue/apollo-composable'
-
-const GET_CHARACTERS = gql`
-  query Characters {
+import axios from 'axios'
+const query = `{
     characters {
       results {
         id
@@ -23,25 +20,40 @@ interface Character {
 }
 
 interface Data {
-  text: string
   characters: Character[]
+  loading: boolean
+  error: string
+  text: string
 }
 
 export default {
   name: 'HomeView',
   data(): Data {
     return {
-      text: '',
-      characters: []
+      characters: [],
+      loading: false,
+      error: '',
+      text: ''
     }
   },
-  setup() {
-    const { result, loading, error } = useQuery(GET_CHARACTERS)
+  mounted() {
+    this.getCharacters()
+  },
+  methods: {
+    async getCharacters() {
+      try {
+        const result = await axios('https://rickandmortyapi.com/graphql', {
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json'
+          },
+          data: JSON.stringify({ query })
+        })
 
-    return {
-      result,
-      loading,
-      error
+        this.characters = result.data.data.characters.results
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
 }
@@ -60,7 +72,7 @@ export default {
       <q-card
         class="bg-secondary text-white"
         v-else
-        v-for="character in result.characters.results"
+        v-for="character in characters"
         :key="character.id"
       >
         <q-card-section>
