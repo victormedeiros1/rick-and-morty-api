@@ -28,7 +28,7 @@ interface Data {
 }
 
 export default {
-  name: 'ProfileView',
+  name: 'Profile',
 
   data(): Data {
     return {

@@ -20,7 +20,7 @@ interface Data {
 }
 
 export default {
-  name: 'HomeView',
+  name: 'Home',
   data(): Data {
     return {
       characters: [],
