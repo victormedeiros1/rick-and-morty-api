@@ -91,7 +91,7 @@ export default {
 
 <template>
   <section>
-    <header class="q-pa-lg">
+    <header class="q-px-lg q-pb-lg">
       <form @submit="filterCharacters">
         <div class="flex no-wrap q-gutter-lg">
           <q-input
@@ -109,20 +109,6 @@ export default {
     </header>
 
     <div class="flex column flex-center">
-      <div class="q-pa-lg flex flex-center">
-        <q-pagination
-          :max="Number(info.pages)"
-          v-model="page"
-          direction-links
-          outline
-          gutter="sm"
-          color="info"
-          active-design="unelevated"
-          active-color="info"
-          @click="setPage"
-        />
-      </div>
-
       <Loading v-if="loading" />
 
       <div v-else class="flex row flex-center q-gutter-lg">
@@ -137,10 +123,12 @@ export default {
           </q-card-section>
 
           <q-card-section class="q-pb-none">
-            <div class="text-h6">{{ character.name }}</div>
+            <h1 class="text-h6">{{ character.name }}</h1>
           </q-card-section>
 
-          <q-card-section class="q-py-none"> Status: {{ character.status }} </q-card-section>
+          <q-card-section class="q-py-none"
+            ><span> Status: {{ character.status }} </span></q-card-section
+          >
           <q-card-section>
             <RouterLink style="text-decoration: none" :to="`/character/${character.id}`">
               <q-btn color="accent" label="Mais informações" />
