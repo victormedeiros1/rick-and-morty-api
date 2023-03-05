@@ -1,7 +1,8 @@
 <script lang="ts">
 import axios from 'axios'
+import type { Character } from '@/types/characters'
 const query = `{
-    character(id: $di) {
+    characters {
       results {
         id
         name
@@ -11,14 +12,6 @@ const query = `{
     }
   }
 `
-
-interface Character {
-  id: string
-  name: string
-  status: string
-  image: string
-}
-
 interface Data {
   characters: Character[]
   loading: boolean
@@ -42,12 +35,8 @@ export default {
   methods: {
     async getCharacters() {
       try {
-        const result = await axios('https://rickandmortyapi.com/graphql', {
-          method: 'POST',
-          headers: {
-            'content-type': 'application/json'
-          },
-          data: JSON.stringify({ query })
+        const result = await axios.post('https://rickandmortyapi.com/graphql', {
+          query
         })
 
         this.characters = result.data.data.characters.results
