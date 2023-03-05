@@ -1,7 +1,7 @@
 <script lang="ts">
 import axios from 'axios'
 const query = `{
-    characters {
+    character(id: $di) {
       results {
         id
         name
