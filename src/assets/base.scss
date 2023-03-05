@@ -2,15 +2,21 @@
 *,
 *::before,
 *::after {
-  color: #fff !important;
   box-sizing: border-box;
   margin: 0;
   padding: 0;
   position: relative;
   font-weight: normal;
 }
+.q-field__native {
+  color: #dfdfdf !important;
+}
+.q-field__label {
+  color: #dfdfdf !important;
+}
 
 body {
+  color: #dfdfdf !important;
   min-height: 100vh;
   transition: color 0.5s, background-color 0.5s;
   line-height: 1.6;

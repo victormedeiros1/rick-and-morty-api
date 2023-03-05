@@ -1,8 +1,16 @@
 <script lang="ts">
+import { ref } from 'vue'
+import Loading from '@/components/Loading.vue'
 import axios from 'axios'
 import type { Character } from '@/types/characters'
-const query = `{
-    characters {
+
+const query = `
+  query Characters($page: Int!){
+    characters(page: $page) {
+      info {
+        count
+        pages
+      }
       results {
         id
         name
@@ -12,36 +20,60 @@ const query = `{
     }
   }
 `
+
+interface Info {
+  count: Number
+  pages: Number
+}
+
 interface Data {
   characters: Character[]
+  info: Info
   loading: boolean
   error: string
   text: string
+  page: any
 }
 
 export default {
   name: 'Home',
+  components: {
+    Loading
+  },
   data(): Data {
     return {
       characters: [],
+      info: {
+        count: 0,
+        pages: 0
+      },
       loading: false,
       error: '',
-      text: ''
+      text: '',
+      page: ref(1)
     }
   },
   mounted() {
     this.getCharacters()
   },
   methods: {
-    async getCharacters() {
+    async getCharacters(page: any = 1) {
       try {
+        this.loading = true
+
         const result = await axios.post('https://rickandmortyapi.com/graphql', {
-          query
+          query,
+          variables: {
+            page
+          }
         })
 
         this.characters = result.data.data.characters.results
+        this.info = result.data.data.characters.info
       } catch (error) {
         console.log(error)
+      } finally {
+        this.loading = false
       }
     },
     filterCharacters(event: Event) {
@@ -49,6 +81,9 @@ export default {
       this.characters = this.characters.filter((character) =>
         character.name.toLowerCase().includes(this.text.toLowerCase())
       )
+    },
+    setPage() {
+      this.getCharacters(this.page)
     }
   }
 }
@@ -58,11 +93,11 @@ export default {
   <section>
     <header class="q-pa-lg">
       <form @submit="filterCharacters">
-        <div class="full-width flex no-wrap q-gutter-lg">
+        <div class="flex no-wrap q-gutter-lg">
           <q-input
-            class="full-width shadow-2"
-            filled
+            class="text-field full-width shadow-2"
             color="accent"
+            bg-color="accent"
             type="text"
             outlined
             label="Procure por um personagem"
@@ -73,31 +108,60 @@ export default {
       </form>
     </header>
 
-    <div class="flex flex-center row q-gutter-lg">
-      <q-spinner-cube v-if="loading" color="color-primary-main" size="2rem" />
+    <div class="flex column flex-center">
+      <div class="q-pa-lg flex flex-center">
+        <q-pagination
+          :max="Number(info.pages)"
+          v-model="page"
+          direction-links
+          outline
+          gutter="sm"
+          color="info"
+          active-design="unelevated"
+          active-color="info"
+          @click="setPage"
+        />
+      </div>
 
-      <q-card
-        class="bg-transparent text-white"
-        v-else
-        v-for="character in characters"
-        :key="character.id"
-      >
-        <q-card-section class="q-pb-none">
-          <img :src="character.image" />
-          <div v-if="character.status === 'Dead'" class="x-dead"></div>
-        </q-card-section>
+      <Loading v-if="loading" />
 
-        <q-card-section class="q-pb-none">
-          <div class="text-h6">{{ character.name }}</div>
-        </q-card-section>
+      <div v-else class="flex row flex-center q-gutter-lg">
+        <q-card
+          class="bg-transparent text-white shadow-3"
+          v-for="character in characters"
+          :key="character.id"
+        >
+          <q-card-section class="q-pb-none">
+            <img :src="character.image" />
+            <div v-if="character.status === 'Dead'" class="x-dead"></div>
+          </q-card-section>
 
-        <q-card-section class="q-py-none"> Status: {{ character.status }} </q-card-section>
-        <q-card-section>
-          <RouterLink style="text-decoration: none" :to="`/character/${character.id}`">
-            <q-btn color="accent" label="Mais informações" />
-          </RouterLink>
-        </q-card-section>
-      </q-card>
+          <q-card-section class="q-pb-none">
+            <div class="text-h6">{{ character.name }}</div>
+          </q-card-section>
+
+          <q-card-section class="q-py-none"> Status: {{ character.status }} </q-card-section>
+          <q-card-section>
+            <RouterLink style="text-decoration: none" :to="`/character/${character.id}`">
+              <q-btn color="accent" label="Mais informações" />
+            </RouterLink>
+          </q-card-section>
+        </q-card>
+      </div>
+
+      <div class="q-pa-lg flex flex-center">
+        <q-pagination
+          :max="Number(info.pages)"
+          v-model="page"
+          direction-links
+          outline
+          gutter="sm"
+          color="info"
+          active-design="unelevated"
+          active-color="info"
+          @click="setPage"
+        />
+      </div>
     </div>
   </section>
 </template>
