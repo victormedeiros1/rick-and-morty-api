@@ -73,14 +73,20 @@ export default {
 
       <q-card class="bg-secondary text-white" v-else>
         <q-card-section>
-          <!-- <img :src="character.image" /> -->
+          <img :src="character.image" />
           <div class="text-h6">{{ character.name }}</div>
         </q-card-section>
 
         <q-separator dark inset />
 
-        <!-- <q-card-section> Status: {{ character.status }} </q-card-section> -->
-        <RouterLink :to="`/character/${character.id}`"> Mais informações </RouterLink>
+        <q-card-section>
+          <ul>
+            <li>Nome: {{ character.name }}</li>
+            <li>Status: {{ character.status }}</li>
+            <li>Espécie: {{ character.species }}</li>
+            <li>Gênero: {{ character.gender }}</li>
+          </ul>
+        </q-card-section>
       </q-card>
     </div>
   </section>
