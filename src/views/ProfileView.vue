@@ -14,6 +14,10 @@ const query = `
       origin {
         name
       }
+      episode {
+        id
+        name
+      }
     }
   }`
 
@@ -34,7 +38,8 @@ export default {
         status: '',
         species: '',
         gender: '',
-        image: ''
+        image: '',
+        episode: []
       },
       loading: true,
       error: false
@@ -56,6 +61,7 @@ export default {
           }
         })
         this.character = result.data.data.character
+        console.log(result.data.data.character)
       } catch (error) {
         this.error = true
       } finally {
@@ -85,6 +91,10 @@ export default {
             <li>Status: {{ character.status }}</li>
             <li>Espécie: {{ character.species }}</li>
             <li>Gênero: {{ character.gender }}</li>
+
+            <p v-for="episode in character.episode" :key="episode.id">
+              Aparições:{{ episode.name }}
+            </p>
           </ul>
         </q-card-section>
       </q-card>

@@ -1,3 +1,8 @@
+export interface Episode {
+  id: string
+  name: string
+}
+
 export interface Character {
   id: string
   name: string
@@ -5,4 +10,5 @@ export interface Character {
   image: string
   species?: string
   gender?: string
+  episode?: Episode[]
 }
