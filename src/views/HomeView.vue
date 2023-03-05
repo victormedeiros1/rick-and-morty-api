@@ -43,6 +43,11 @@ export default {
       } catch (error) {
         console.log(error)
       }
+    },
+    filterCharacters() {
+      this.characters = this.characters.filter((character) =>
+        character.name.toLowerCase().includes(this.text.toLowerCase())
+      )
     }
   }
 }
@@ -51,8 +56,8 @@ export default {
 <template>
   <section>
     <header>
-      <q-input outlined v-model="text" type="text" label="Procure por um personagem" />
-      {{ text }}
+      <q-input type="text" label="Procure por um personagem" outlined v-model="text" />
+      <QBtn color="primary" label="Procurar" @click="filterCharacters" />
     </header>
 
     <div class="characters-list flex row q-gutter-lg">
