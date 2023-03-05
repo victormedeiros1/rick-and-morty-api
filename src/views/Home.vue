@@ -132,7 +132,7 @@ export default {
           :key="character.id"
         >
           <q-card-section class="q-pb-none">
-            <img :src="character.image" />
+            <img :src="character.image" loading="lazy " />
             <div v-if="character.status === 'Dead'" class="x-dead"></div>
           </q-card-section>
 
