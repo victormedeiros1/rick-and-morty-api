@@ -44,7 +44,8 @@ export default {
         console.log(error)
       }
     },
-    filterCharacters() {
+    filterCharacters(event: Event) {
+      event.preventDefault()
       this.characters = this.characters.filter((character) =>
         character.name.toLowerCase().includes(this.text.toLowerCase())
       )
@@ -55,32 +56,77 @@ export default {
 
 <template>
   <section>
-    <header>
-      <q-input type="text" label="Procure por um personagem" outlined v-model="text" />
-      <QBtn color="primary" label="Procurar" @click="filterCharacters" />
+    <header class="q-pa-lg">
+      <form @submit="filterCharacters">
+        <div class="full-width flex no-wrap q-gutter-lg">
+          <q-input
+            class="full-width shadow-2"
+            filled
+            color="accent"
+            type="text"
+            outlined
+            label="Procure por um personagem"
+            v-model="text"
+          />
+          <q-btn type="submit" color="accent" label="Procurar" />
+        </div>
+      </form>
     </header>
 
-    <div class="characters-list flex row q-gutter-lg">
+    <div class="flex flex-center row q-gutter-lg">
       <q-spinner-cube v-if="loading" color="color-primary-main" size="2rem" />
 
       <q-card
-        class="bg-secondary text-white"
+        class="bg-transparent text-white"
         v-else
         v-for="character in characters"
         :key="character.id"
       >
-        <q-card-section>
+        <q-card-section class="q-pb-none">
           <img :src="character.image" />
+          <div v-if="character.status === 'Dead'" class="x-dead"></div>
+        </q-card-section>
+
+        <q-card-section class="q-pb-none">
           <div class="text-h6">{{ character.name }}</div>
         </q-card-section>
 
-        <q-separator dark inset />
-
-        <q-card-section> Status: {{ character.status }} </q-card-section>
-        <RouterLink :to="`/character/${character.id}`"> Mais informações </RouterLink>
+        <q-card-section class="q-py-none"> Status: {{ character.status }} </q-card-section>
+        <q-card-section>
+          <RouterLink style="text-decoration: none" :to="`/character/${character.id}`">
+            <q-btn color="accent" label="Mais informações" />
+          </RouterLink>
+        </q-card-section>
       </q-card>
     </div>
   </section>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.x-dead {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &::after,
+  &::before {
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 100%;
+    background-color: rgba(#9c1000, 50%);
+  }
+
+  &::after {
+    transform: rotate(-45deg);
+  }
+  &::before {
+    transform: rotate(45deg);
+  }
+}
+</style>
