@@ -79,7 +79,7 @@ export default {
   <section>
     <div class="characters-list flex row q-gutter-lg">
       <ButtonBack />
-      <q-spinner-cube v-if="loading" color="color-primary-main" size="2rem" />
+      <Loading v-if="loading" />
 
       <q-card class="bg-transparent text-white shadow-3">
         <q-card-section class="q-pb-none">
