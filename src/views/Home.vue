@@ -29,6 +29,8 @@ interface Info {
 interface Data {
   characters: Character[]
   info: Info
+  options: string[]
+  optionSelected: string
   loading: boolean
   error: string
   text: string
@@ -47,6 +49,8 @@ export default {
         count: 0,
         pages: 0
       },
+      options: ['Alive', 'Dead'],
+      optionSelected: '',
       loading: false,
       error: '',
       text: '',
@@ -78,8 +82,10 @@ export default {
     },
     filterCharacters(event: Event) {
       event.preventDefault()
-      this.characters = this.characters.filter((character) =>
-        character.name.toLowerCase().includes(this.text.toLowerCase())
+      this.characters = this.characters.filter(
+        (character) =>
+          character.name.toLowerCase().includes(this.text.toLowerCase()) &&
+          character.status === this.optionSelected
       )
     },
     setPage() {
@@ -92,7 +98,7 @@ export default {
 <template>
   <section>
     <header class="q-px-lg q-pb-lg">
-      <form @submit="filterCharacters">
+      <form @submit="filterCharacters" class="q-gutter-lg">
         <div class="flex no-wrap q-gutter-lg">
           <q-input
             class="text-field full-width shadow-2"
@@ -104,6 +110,17 @@ export default {
             v-model="text"
           />
           <q-btn type="submit" color="accent" label="Procurar" />
+        </div>
+        <div>
+          <q-select
+            class="select-input shadow-2"
+            color="accent"
+            bg-color="accent"
+            outlined
+            v-model="optionSelected"
+            :options="options"
+            label="Status"
+          />
         </div>
       </form>
     </header>
