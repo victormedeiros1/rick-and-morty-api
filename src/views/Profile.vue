@@ -1,5 +1,6 @@
 <script lang="ts">
 import axios from 'axios'
+import Loading from '@/components/Loading.vue'
 import ButtonBack from '@/components/ButtonBack.vue'
 import type { Character } from '@/types/characters'
 
@@ -25,13 +26,13 @@ const query = `
 interface Data {
   character: Character
   loading: boolean
-  error: boolean
 }
 
 export default {
   name: 'Profile',
   components: {
-    ButtonBack
+    ButtonBack,
+    Loading
   },
 
   data(): Data {
@@ -45,15 +46,12 @@ export default {
         image: '',
         episode: []
       },
-      loading: true,
-      error: false
+      loading: true
     }
   },
-
   mounted() {
     this.getCharacter()
   },
-
   methods: {
     async getCharacter() {
       try {
@@ -66,7 +64,7 @@ export default {
         })
         this.character = result.data.data.character
       } catch (error) {
-        this.error = true
+        console.log(error)
       } finally {
         this.loading = false
       }
@@ -77,11 +75,12 @@ export default {
 
 <template>
   <section>
+    <Loading v-if="loading" />
+
     <div class="characters-list flex row q-gutter-lg">
       <ButtonBack />
-      <Loading v-if="loading" />
 
-      <q-card class="bg-transparent text-white shadow-3">
+      <q-card class="card bg-transparent text-white shadow-3">
         <q-card-section class="q-pb-none">
           <img :src="character.image" loading="lazy" />
         </q-card-section>
@@ -106,7 +105,7 @@ export default {
               <p class="text-h6">Aparições (episódios)</p>
             </q-item>
             <q-item v-for="{ id, name } in character.episode" :key="id">
-              <q-item-section> {{ name }} </q-item-section>
+              <q-item-section> # {{ name }} </q-item-section>
             </q-item>
           </q-list>
         </q-card-section>
@@ -114,3 +113,8 @@ export default {
     </div>
   </section>
 </template>
+<style scoped lang="scss">
+.card {
+  max-width: 332px;
+}
+</style>

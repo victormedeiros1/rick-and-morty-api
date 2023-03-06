@@ -32,7 +32,6 @@ interface Data {
   options: string[]
   optionSelected: string
   loading: boolean
-  error: string
   text: string
   page: any
 }
@@ -52,7 +51,6 @@ export default {
       options: ['Alive', 'Dead'],
       optionSelected: '',
       loading: false,
-      error: '',
       text: '',
       page: ref(1)
     }
@@ -128,9 +126,9 @@ export default {
     <div class="flex column flex-center">
       <Loading v-if="loading" />
 
-      <div v-else class="flex row flex-center q-gutter-lg">
+      <div v-else class="flex row q-mx-auto q-gutter-lg">
         <q-card
-          class="bg-transparent text-white shadow-3"
+          class="card bg-transparent text-white shadow-3"
           v-for="character in characters"
           :key="character.id"
         >
@@ -146,7 +144,7 @@ export default {
           <q-card-section class="q-py-none"
             ><span> Status: {{ character.status }} </span></q-card-section
           >
-          <q-card-section>
+          <q-card-section class="q-mt-auto">
             <RouterLink style="text-decoration: none" :to="`/character/${character.id}`">
               <q-btn color="accent" label="Mais informações" />
             </RouterLink>
@@ -172,6 +170,9 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+.card {
+  max-width: 334px;
+}
 .x-dead {
   position: absolute;
   left: 0;
