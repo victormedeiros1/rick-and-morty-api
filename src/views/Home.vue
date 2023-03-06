@@ -85,9 +85,6 @@ export default {
           character.name.toLowerCase().includes(this.text.toLowerCase()) &&
           character.status === this.optionSelected
       )
-    },
-    setPage() {
-      this.getCharacters(this.page)
     }
   }
 }
@@ -162,7 +159,7 @@ export default {
           color="info"
           active-design="unelevated"
           active-color="info"
-          @click="setPage"
+          @click="getCharacters(page)"
         />
       </div>
     </div>
