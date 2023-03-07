@@ -1,5 +1,5 @@
 ![rickandmorty](https://user-images.githubusercontent.com/66215200/223308926-7cb4d2e8-a68b-48ac-a462-371cfe4a4095.png)
-# Desafio Front-end EngagED
+# 💻 Desafio Front-end EngagED
 ### Link da aplicação: https://rickandmortyapi-josevictordev.netlify.app/
 
 Algumas dicas para o desafio:
@@ -14,7 +14,7 @@ não tenha conhecimento.
 - Esperamos que a entrega do desafio seja realizada através do GitHub.
 - Adoramos quando é disponibilizado um link para acessarmos a aplicação rodando!
 
-# Desafio
+# 💻 Desafio
 
 Consumindo a [API em GraphQL da série de animação Rick and Morty](https://rickandmortyapi.com/documentation) desenvolva as
 seguintes interfaces.
@@ -33,7 +33,7 @@ aparece.
 
 ---
 
-### 💻 **Features que eu adicionei**
+## 💻 **Features a mais**
 - [x]  Indicador de Vida ou Morte(X) sobre a foto do personagem 
 - [x]  Paginação
 - [x]  Filtros adicional pelo Status
