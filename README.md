@@ -1,46 +1,81 @@
-# challenge-engagED
+![rickandmorty](https://user-images.githubusercontent.com/66215200/223308926-7cb4d2e8-a68b-48ac-a462-371cfe4a4095.png)
+# Desafio Front-end EngagED
+### Link da aplicação: https://rickandmortyapi-josevictordev.netlify.app/
 
-This template should help get you started developing with Vue 3 in Vite.
+Algumas dicas para o desafio:
 
-## Recommended IDE Setup
+- Fique à vontade para voar alto e adicionar mais funcionalidades ao que fora proposto,
+mas não se esqueça de garantir a qualidade na sua solução como um todo.
+- Gostaríamos que você utilizasse a versão 3 do Vue, porém se você se sentir mais
+confortável com outra versão fique à vontade para usá-la.
+- Gostaríamos também que você utilizasse TypeScript, porém não faz mal não usar caso
+não tenha conhecimento.
+- Está em dúvida de qual UI Framework usar com Vue 3? Nossa sugestão é o [Quasar](http://quasar.dev/)!
+- Esperamos que a entrega do desafio seja realizada através do GitHub.
+- Adoramos quando é disponibilizado um link para acessarmos a aplicação rodando!
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+# Desafio
 
-## Type Support for `.vue` Imports in TS
+Consumindo a [API em GraphQL da série de animação Rick and Morty](https://rickandmortyapi.com/documentation) desenvolva as
+seguintes interfaces.
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+## Página de listagem dos personagens
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+- Essa página, além da listagem dos personagens da série, deve permitir filtrar os
+personagens por nome.
+- Ao selecionar um personagem da lista, a interface deve direcionar o usuário para a
+página desse personagem.
 
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+## Página do personagem
 
-## Customize configuration
+- Essa página deve exibir, além das informações do personagem, quais episódios ele
+aparece.
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+---
 
-## Project Setup
+## Etapas
+
+### Etapa 1 - Configuração do ambiente
+
+- [x]  Criar projeto → Vue3 + Vite + Typescript + Repositório
+- [x]  Colocar em live no Netlify
+
+### Etapa 2
+
+- Página 1 - Listagem dos Personagens
+    - [x]  Listar os personagens da série
+    - [x]  Filtrar personagens por nome
+    - [x]  Clicar num personagem e ir para a Página 2
+
+### Etapa 3
+- Página 2 - Informações do personagem
+    - [x]  Exibir dados do personagem
+    - [x]  Exibir em quais episódios ele aparece
+    
+
+### **Features adicionais**
+- [x]  Indicador de Vida ou Morte(X) sobre a foto do personagem 
+- [x]  Paginação
+- [x]  Filtros adicional pelo Status
+- [x]  Loading para imagens
+- [x]  Loading para página
+
+## Rodando o projeto
+
+## Instalação das dependências
 
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+### Levantar servidor local
 
 ```sh
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
+### Gerar o build da aplicação
 
 ```sh
 npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
 ```
