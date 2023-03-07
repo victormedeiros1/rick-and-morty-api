@@ -35,7 +35,7 @@ export default {
   data(): Data {
     return {
       characters: [],
-      options: ['Alive', 'Dead'],
+      options: ['Alive', 'Dead', 'unknown'],
       optionSelected: '',
       loading: true,
       text: '',
@@ -80,7 +80,8 @@ export default {
 
 <template>
   <section>
-    <header class="q-px-lg q-pb-lg">
+    <header class="q-px-lg q-pb-lg text-center">
+      <h1 class="text-h3 q-py-lg text-weight-bold">RICK AND MORTY PERSONAGENS</h1>
       <form @submit="filterCharacters" class="q-gutter-lg">
         <div class="flex no-wrap q-gutter-lg">
           <q-input
@@ -112,8 +113,12 @@ export default {
       <Loading v-if="loading" />
 
       <div class="flex row q-mx-auto q-gutter-lg">
-        <article v-for="character in characters" :key="character.id">
-          <RouterLink :to="`/character/${character.id}`">
+        <span class="text-h2 text-weight-bold q-py-lg" v-if="characters.length === 0">
+          Nenhum resultado encontrado
+        </span>
+
+        <article v-else v-for="character in characters" :key="character.id">
+          <RouterLink style="text-decoration: none" :to="`/character/${character.id}`">
             <Card :character="character" :loading="loading" />
           </RouterLink>
         </article>
