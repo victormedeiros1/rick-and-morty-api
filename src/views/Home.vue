@@ -62,7 +62,6 @@ export default {
     async getCharacters(page: any = 1) {
       try {
         this.loading = true
-
         const result = await axios.post('https://rickandmortyapi.com/graphql', {
           query,
           variables: {
@@ -75,7 +74,10 @@ export default {
       } catch (error) {
         console.log(error)
       } finally {
-        this.loading = false
+        // Fake loading
+        setTimeout(() => {
+          this.loading = false
+        }, 2000)
       }
     },
     filterCharacters(event: Event) {
@@ -123,14 +125,15 @@ export default {
     <div class="flex column flex-center">
       <Loading v-if="loading" />
 
-      <div v-else class="flex row q-mx-auto q-gutter-lg">
+      <div class="flex row q-mx-auto q-gutter-lg">
         <q-card
           class="card bg-transparent text-white shadow-3"
           v-for="character in characters"
           :key="character.id"
         >
           <q-card-section class="q-pb-none">
-            <img :src="character.image" loading="lazy " />
+            <img class="card__image" :src="character.image" loading="lazy " />
+            <div v-if="loading" class="pseudo-image"></div>
             <div v-if="character.status === 'Dead'" class="x-dead"></div>
           </q-card-section>
 
@@ -167,8 +170,23 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+.pseudo-image {
+  top: 1rem;
+  left: 1rem;
+  z-index: 2;
+  width: 300px;
+  height: 300px;
+  background-color: white;
+  position: absolute;
+}
 .card {
-  max-width: 334px;
+  position: relative;
+  max-width: 332px;
+
+  &__image {
+    width: 300px;
+    height: 300px;
+  }
 }
 .x-dead {
   position: absolute;
