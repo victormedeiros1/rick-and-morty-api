@@ -14,7 +14,7 @@ export default {
   <q-card class="card bg-transparent text-white shadow-3">
     <q-card-section class="q-pb-none">
       <img class="card__image" :src="character.image" loading="lazy " />
-      <div v-if="loading" class="pseudo-image"></div>
+      <div v-if="loading" class="loading-image"></div>
       <div v-if="character.status === 'Dead'" class="x-dead"></div>
     </q-card-section>
 
@@ -22,7 +22,7 @@ export default {
       <h1 class="text-h6">{{ character.name }}</h1>
     </q-card-section>
 
-    <q-card-section class="q-py-none"
+    <q-card-section class="q-pt-none"
       ><span> Status: {{ character.status }} </span></q-card-section
     >
 
@@ -36,32 +36,26 @@ export default {
         </q-item>
       </q-list>
     </q-card-section>
-
-    <q-card-section v-else class="q-mt-auto">
-      <RouterLink style="text-decoration: none" :to="`/character/${character.id}`">
-        <q-btn color="accent" label="Mais informações" />
-      </RouterLink>
-    </q-card-section>
   </q-card>
 </template>
 
 <style lang="scss" scoped>
-.pseudo-image {
+.loading-image {
   top: 1rem;
   left: 1rem;
   z-index: 2;
-  width: 300px;
-  height: 300px;
+  width: 18.75rem;
+  height: 18.75rem;
   background-color: white;
   position: absolute;
 }
 .card {
   position: relative;
-  max-width: 332px;
+  max-width: 20.75rem;
 
   &__image {
-    width: 300px;
-    height: 300px;
+    width: 18.75rem;
+    height: 18.75rem;
   }
 }
 .x-dead {
@@ -78,7 +72,7 @@ export default {
   &::before {
     content: '';
     position: absolute;
-    width: 30px;
+    width: 1.875rem;
     height: 100%;
     background-color: rgba(#9c1000, 50%);
   }

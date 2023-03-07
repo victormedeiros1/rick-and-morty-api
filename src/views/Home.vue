@@ -112,12 +112,11 @@ export default {
       <Loading v-if="loading" />
 
       <div class="flex row q-mx-auto q-gutter-lg">
-        <Card
-          v-for="character in characters"
-          :key="character.id"
-          :character="character"
-          :loading="loading"
-        />
+        <article v-for="character in characters" :key="character.id">
+          <RouterLink :to="`/character/${character.id}`">
+            <Card :character="character" :loading="loading" />
+          </RouterLink>
+        </article>
       </div>
 
       <div class="q-pa-lg flex flex-center">
@@ -136,3 +135,12 @@ export default {
     </div>
   </section>
 </template>
+<style lang="scss" scoped>
+article {
+  transition: 0.3s;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+</style>

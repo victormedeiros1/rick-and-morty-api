@@ -17,7 +17,7 @@
 
   &__logo {
     position: relative;
-    max-width: 629px;
+    max-width: 39.375rem;
     animation: loading 1s infinite alternate;
   }
 
