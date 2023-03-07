@@ -68,11 +68,17 @@ export default {
     },
     filterCharacters(event: Event) {
       event.preventDefault()
-      this.characters = this.characters.filter(
-        (character) =>
-          character.name.toLowerCase().includes(this.text.toLowerCase()) &&
-          character.status === this.optionSelected
-      )
+      if (this.optionSelected === '') {
+        this.characters = this.characters.filter((character) =>
+          character.name.toLowerCase().includes(this.text.toLowerCase())
+        )
+      } else {
+        this.characters = this.characters.filter(
+          (character) =>
+            character.name.toLowerCase().includes(this.text.toLowerCase()) &&
+            character.status === this.optionSelected
+        )
+      }
     }
   }
 }
