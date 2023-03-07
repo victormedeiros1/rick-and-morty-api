@@ -19,6 +19,7 @@ const query = `
 
 interface Data {
   characters: Character[]
+  filteresCharacters: Character[]
   options: string[]
   optionSelected: string
   loading: boolean
@@ -35,6 +36,7 @@ export default {
   data(): Data {
     return {
       characters: [],
+      filteresCharacters: [],
       options: ['Alive', 'Dead', 'unknown'],
       optionSelected: '',
       loading: true,
@@ -69,11 +71,11 @@ export default {
     filterCharacters(event: Event) {
       event.preventDefault()
       if (this.optionSelected === '') {
-        this.characters = this.characters.filter((character) =>
+        this.filteresCharacters = this.characters.filter((character) =>
           character.name.toLowerCase().includes(this.text.toLowerCase())
         )
       } else {
-        this.characters = this.characters.filter(
+        this.filteresCharacters = this.characters.filter(
           (character) =>
             character.name.toLowerCase().includes(this.text.toLowerCase()) &&
             character.status === this.optionSelected
@@ -119,11 +121,11 @@ export default {
       <Loading v-if="loading" />
 
       <div class="flex row q-mx-auto q-gutter-lg">
-        <span class="text-h2 text-weight-bold q-py-lg" v-if="characters.length === 0">
+        <span class="text-h2 text-weight-bold q-py-lg" v-if="filteresCharacters.length === 0">
           Nenhum resultado encontrado
         </span>
 
-        <article v-else v-for="character in characters" :key="character.id">
+        <article v-else v-for="character in filteresCharacters" :key="character.id">
           <RouterLink style="text-decoration: none" :to="`/character/${character.id}`">
             <Card :character="character" :loading="loading" />
           </RouterLink>
