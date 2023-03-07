@@ -33,7 +33,14 @@ aparece.
 
 ---
 
-## Etapas
+### 💻 **Features que eu adicionei**
+- [x]  Indicador de Vida ou Morte(X) sobre a foto do personagem 
+- [x]  Paginação
+- [x]  Filtros adicional pelo Status
+- [x]  Loading para imagens
+- [x]  Loading para página
+
+## ↗ Etapas
 
 ### Etapa 1 - Configuração do ambiente
 
@@ -51,14 +58,6 @@ aparece.
 - Página 2 - Informações do personagem
     - [x]  Exibir dados do personagem
     - [x]  Exibir em quais episódios ele aparece
-    
-
-### **Features adicionais**
-- [x]  Indicador de Vida ou Morte(X) sobre a foto do personagem 
-- [x]  Paginação
-- [x]  Filtros adicional pelo Status
-- [x]  Loading para imagens
-- [x]  Loading para página
 
 ## Rodando o projeto
 
