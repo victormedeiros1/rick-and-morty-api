@@ -2,6 +2,7 @@
 import axios from 'axios'
 import Loading from '@/components/Loading.vue'
 import ButtonBack from '@/components/ButtonBack.vue'
+import Card from '@/components/Card.vue'
 import type { Character } from '@/types/characters'
 
 const query = `
@@ -32,7 +33,8 @@ export default {
   name: 'Profile',
   components: {
     ButtonBack,
-    Loading
+    Loading,
+    Card
   },
 
   data(): Data {
@@ -40,10 +42,10 @@ export default {
       character: {
         id: '',
         name: '',
-        status: '',
-        species: '',
-        gender: '',
         image: '',
+        status: '',
+        gender: '',
+        species: '',
         episode: []
       },
       loading: true
@@ -55,6 +57,7 @@ export default {
   methods: {
     async getCharacter() {
       try {
+        this.loading = true
         const id = this.$route.params.id
         const result = await axios.post('https://rickandmortyapi.com/graphql', {
           query,
@@ -66,7 +69,10 @@ export default {
       } catch (error) {
         console.log(error)
       } finally {
-        this.loading = false
+        // Fake loading
+        setTimeout(() => {
+          this.loading = false
+        }, 2000)
       }
     }
   }
@@ -77,44 +83,9 @@ export default {
   <section>
     <Loading v-if="loading" />
 
-    <div class="characters-list flex row q-gutter-lg">
+    <div class="flex row q-gutter-lg">
       <ButtonBack />
-
-      <q-card class="card bg-transparent text-white shadow-3">
-        <q-card-section class="q-pb-none">
-          <img :src="character.image" loading="lazy" />
-        </q-card-section>
-
-        <q-card-section class="q-pb-none">
-          <h1 class="text-h6">{{ character.name }}</h1>
-        </q-card-section>
-
-        <q-card-section class="q-py-none">
-          <span>Status: {{ character.status }}</span>
-        </q-card-section>
-        <q-card-section class="q-py-none">
-          <span>Gênero: {{ character.gender }}</span>
-        </q-card-section>
-        <q-card-section class="q-pt-none">
-          <span>Espécie: {{ character.species }}</span>
-        </q-card-section>
-
-        <q-card-section>
-          <q-list dense bordered padding class="rounded-borders">
-            <q-item>
-              <p class="text-h6">Aparições (episódios)</p>
-            </q-item>
-            <q-item v-for="{ id, name } in character.episode" :key="id">
-              <q-item-section> # {{ name }} </q-item-section>
-            </q-item>
-          </q-list>
-        </q-card-section>
-      </q-card>
+      <Card :character="character" :loading="loading" />
     </div>
   </section>
 </template>
-<style scoped lang="scss">
-.card {
-  max-width: 332px;
-}
-</style>

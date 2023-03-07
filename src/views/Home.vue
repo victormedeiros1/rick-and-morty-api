@@ -1,6 +1,7 @@
 <script lang="ts">
 import { ref } from 'vue'
 import Loading from '@/components/Loading.vue'
+import Card from '@/components/Card.vue'
 import axios from 'axios'
 import type { Character } from '@/types/characters'
 
@@ -39,7 +40,8 @@ interface Data {
 export default {
   name: 'Home',
   components: {
-    Loading
+    Loading,
+    Card
   },
   data(): Data {
     return {
@@ -50,7 +52,7 @@ export default {
       },
       options: ['Alive', 'Dead'],
       optionSelected: '',
-      loading: false,
+      loading: true,
       text: '',
       page: ref(1)
     }
@@ -126,30 +128,12 @@ export default {
       <Loading v-if="loading" />
 
       <div class="flex row q-mx-auto q-gutter-lg">
-        <q-card
-          class="card bg-transparent text-white shadow-3"
+        <Card
           v-for="character in characters"
           :key="character.id"
-        >
-          <q-card-section class="q-pb-none">
-            <img class="card__image" :src="character.image" loading="lazy " />
-            <div v-if="loading" class="pseudo-image"></div>
-            <div v-if="character.status === 'Dead'" class="x-dead"></div>
-          </q-card-section>
-
-          <q-card-section class="q-pb-none">
-            <h1 class="text-h6">{{ character.name }}</h1>
-          </q-card-section>
-
-          <q-card-section class="q-py-none"
-            ><span> Status: {{ character.status }} </span></q-card-section
-          >
-          <q-card-section class="q-mt-auto">
-            <RouterLink style="text-decoration: none" :to="`/character/${character.id}`">
-              <q-btn color="accent" label="Mais informações" />
-            </RouterLink>
-          </q-card-section>
-        </q-card>
+          :character="character"
+          :loading="loading"
+        />
       </div>
 
       <div class="q-pa-lg flex flex-center">
@@ -168,50 +152,3 @@ export default {
     </div>
   </section>
 </template>
-
-<style lang="scss" scoped>
-.pseudo-image {
-  top: 1rem;
-  left: 1rem;
-  z-index: 2;
-  width: 300px;
-  height: 300px;
-  background-color: white;
-  position: absolute;
-}
-.card {
-  position: relative;
-  max-width: 332px;
-
-  &__image {
-    width: 300px;
-    height: 300px;
-  }
-}
-.x-dead {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  &::after,
-  &::before {
-    content: '';
-    position: absolute;
-    width: 30px;
-    height: 100%;
-    background-color: rgba(#9c1000, 50%);
-  }
-
-  &::after {
-    transform: rotate(-45deg);
-  }
-  &::before {
-    transform: rotate(45deg);
-  }
-}
-</style>
