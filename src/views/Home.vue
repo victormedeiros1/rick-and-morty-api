@@ -19,7 +19,7 @@ const query = `
 
 interface Data {
   characters: Character[]
-  filteresCharacters: Character[]
+  filteredsCharacters: Character[]
   options: string[]
   optionSelected: string
   loading: boolean
@@ -36,7 +36,7 @@ export default {
   data(): Data {
     return {
       characters: [],
-      filteresCharacters: [],
+      filteredsCharacters: [],
       options: ['Alive', 'Dead', 'unknown'],
       optionSelected: '',
       loading: true,
@@ -59,6 +59,7 @@ export default {
         })
 
         this.characters = result.data.data.characters.results
+        this.filteredsCharacters = result.data.data.characters.results
       } catch (error) {
         console.log(error)
       } finally {
@@ -70,15 +71,20 @@ export default {
     },
     filterCharacters(event: Event) {
       event.preventDefault()
-      if (this.optionSelected === '') {
-        this.filteresCharacters = this.characters.filter((character) =>
-          character.name.toLowerCase().includes(this.text.toLowerCase())
+
+      if (this.optionSelected.length > 0) {
+        this.filteredsCharacters = this.characters.filter(
+          (character) => character.status === this.optionSelected
         )
+
+        if (this.text.length > 0) {
+          this.filteredsCharacters = this.filteredsCharacters.filter((character) =>
+            character.name.toLowerCase().includes(this.text.toLowerCase())
+          )
+        }
       } else {
-        this.filteresCharacters = this.characters.filter(
-          (character) =>
-            character.name.toLowerCase().includes(this.text.toLowerCase()) &&
-            character.status === this.optionSelected
+        this.filteredsCharacters = this.characters.filter((character) =>
+          character.name.toLowerCase().includes(this.text.toLowerCase())
         )
       }
     }
@@ -103,17 +109,15 @@ export default {
           />
           <q-btn type="submit" color="accent" label="Procurar" />
         </div>
-        <div>
-          <q-select
-            class="select-input shadow-2"
-            color="accent"
-            bg-color="accent"
-            outlined
-            v-model="optionSelected"
-            :options="options"
-            label="Status"
-          />
-        </div>
+        <q-select
+          class="select-input shadow-2"
+          color="accent"
+          bg-color="accent"
+          outlined
+          v-model="optionSelected"
+          :options="options"
+          label="Status"
+        />
       </form>
     </header>
 
@@ -121,11 +125,11 @@ export default {
       <Loading v-if="loading" />
 
       <div class="flex row q-mx-auto q-gutter-lg">
-        <span class="text-h2 text-weight-bold q-py-lg" v-if="filteresCharacters.length === 0">
+        <span class="text-h2 text-weight-bold q-py-lg" v-if="filteredsCharacters.length === 0">
           Nenhum resultado encontrado
         </span>
 
-        <article v-else v-for="character in filteresCharacters" :key="character.id">
+        <article v-else v-for="character in filteredsCharacters" :key="character.id">
           <RouterLink style="text-decoration: none" :to="`/character/${character.id}`">
             <Card :character="character" :loading="loading" />
           </RouterLink>

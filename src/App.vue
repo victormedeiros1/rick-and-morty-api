@@ -3,7 +3,7 @@
 <template>
   <q-layout>
     <q-page-container class="container">
-      <q-page>
+      <q-page class="full-width">
         <RouterView />
       </q-page>
     </q-page-container>
