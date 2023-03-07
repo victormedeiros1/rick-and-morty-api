@@ -1,5 +1,4 @@
 <script lang="ts">
-import { ref } from 'vue'
 import Loading from '@/components/Loading.vue'
 import Card from '@/components/Card.vue'
 import axios from 'axios'
@@ -8,10 +7,6 @@ import type { Character } from '@/types/characters'
 const query = `
   query Characters($page: Int!){
     characters(page: $page) {
-      info {
-        count
-        pages
-      }
       results {
         id
         name
@@ -22,19 +17,13 @@ const query = `
   }
 `
 
-interface Info {
-  count: Number
-  pages: Number
-}
-
 interface Data {
   characters: Character[]
-  info: Info
   options: string[]
   optionSelected: string
   loading: boolean
   text: string
-  page: any
+  page: number
 }
 
 export default {
@@ -46,22 +35,18 @@ export default {
   data(): Data {
     return {
       characters: [],
-      info: {
-        count: 0,
-        pages: 0
-      },
       options: ['Alive', 'Dead'],
       optionSelected: '',
       loading: true,
       text: '',
-      page: ref(1)
+      page: 1
     }
   },
   mounted() {
     this.getCharacters()
   },
   methods: {
-    async getCharacters(page: any = 1) {
+    async getCharacters(page: number = 1) {
       try {
         this.loading = true
         const result = await axios.post('https://rickandmortyapi.com/graphql', {
@@ -72,7 +57,6 @@ export default {
         })
 
         this.characters = result.data.data.characters.results
-        this.info = result.data.data.characters.info
       } catch (error) {
         console.log(error)
       } finally {
@@ -138,7 +122,7 @@ export default {
 
       <div class="q-pa-lg flex flex-center">
         <q-pagination
-          :max="Number(info.pages)"
+          :max="10"
           v-model="page"
           direction-links
           outline
