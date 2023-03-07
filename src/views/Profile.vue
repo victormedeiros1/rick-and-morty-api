@@ -83,8 +83,9 @@ export default {
   <section>
     <Loading v-if="loading" />
 
-    <div class="flex row q-gutter-lg">
+    <div class="flex row q-gutter-lg flex column items-center">
       <ButtonBack />
+      <h1 class="text-h3 q-py-lg text-weight-bold">PERFIL DO PERSONAGEM</h1>
       <Card :character="character" :loading="loading" />
     </div>
   </section>
