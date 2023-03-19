@@ -1,42 +1,38 @@
 ![rickandmorty](https://user-images.githubusercontent.com/66215200/223308926-7cb4d2e8-a68b-48ac-a462-371cfe4a4095.png)
-# 💻 Brincando com a RickAndMortyAPI
-A ideia dessa aplicação é consumir a API do Rick and Morty com as seguintes tecnologias:
+# 💻 Playing with RickAndMortyAPI
+The idea of this application is to consume the RickAndMortyAPI with the following technologies:
 - Vue 3
 - GraphQL
 - Quasar
 - SASS
 
-### Link da aplicação: https://rickandmortyapi-josevictordev.netlify.app/
-
-# 💻 Desafio
-
-Consumindo a [API em GraphQL da série de animação Rick and Morty](https://rickandmortyapi.com/documentation) desenvolva as
-seguintes interfaces.
+### Live: https://rickandmortyapi-josevictordev.netlify.app/
 
 ## 💻 **Features**
-- [x]  Listagem de personagens
-- [x]  Página individual com detalhes do personagem
-- [x]  Indicador de Vida ou Morte(X) sobre a foto do personagem 
-- [x]  Paginação
-- [x]  Filtros adicional pelo Status
-- [x]  Loading para imagens
-- [x]  Loading para página
+- [x]  Characters list
+- [x]  Individual page with character details
+- [x]  Life or death indicator over character photo
+- [x]  Pagination
+- [x]  Filter characters by name
+- [x]  Filter characters by status
+- [x]  Loading for imagens
+- [x]  Loading for page
 
-## Rodando o projeto
+## Running the project
 
-## Instalação das dependências
+## Installation of dependecies
 
 ```sh
 npm install
 ```
 
-### Levantar servidor local
+### Iniciando o servidor local
 
 ```sh
 npm run dev
 ```
 
-### Gerar o build da aplicação
+### Generate application build
 
 ```sh
 npm run build
